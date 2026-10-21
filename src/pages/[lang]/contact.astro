@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import MapPreview from '../../components/MapPreview.astro';
+import Icon from '../../components/Icon.astro';
+import headerImage from '../../assets/images/header-contact.jpg';
+import { company } from '../../data/site';
+import { localeStaticPaths, useTranslations, type Locale } from '../../i18n';
+
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+const lang = Astro.params.lang as Locale;
+const t = useTranslations(lang).contact;
+const phone = company.phone || company.phonePlaceholder;
+---
+
+<BaseLayout lang={lang} page="contact">
+  <PageHeader eyebrow={t.eyebrow} title={t.title} intro={t.intro} image={headerImage} />
+
+  <section class="container grid">
+    <div class="form-col">
+      <ContactForm lang={lang} />
+    </div>
+
+    <div class="side">
+      <dl class="details">
+        <div>
+          <span class="circle"><Icon name="mail" size={20} /></span>
+          <dt>{t.emailLabel}</dt>
+          <dd><a href={`mailto:${company.email}`} data-cta="email">{company.email}</a></dd>
+        </div>
+        <div>
+          <span class="circle"><Icon name="phone" size={20} /></span>
+          <dt>{t.phoneLabel}</dt>
+          <dd>
+            {company.phone ? <a href={`tel:${company.phone.replace(/\s/g, '')}`} data-cta="phone">{phone}</a> : phone}
+          </dd>
+        </div>
+        <div>
+          <span class="circle"><Icon name="pin" size={20} /></span>
+          <dt>{t.officeLabel}</dt>
+          <dd>{t.office}<br />{t.officeNote}</dd>
+        </div>
+        <div>
+          <span class="circle"><Icon name="clock" size={20} /></span>
+          <dt>{t.hoursLabel}</dt>
+          <dd>{t.hours}</dd>
+        </div>
+      </dl>
+      <MapPreview alt={t.mapAlt} openLabel={t.openMap} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .grid { display: flex; flex-wrap: wrap; gap: 24px; align-items: stretch; padding-block: 48px 88px; }
+  .form-col { flex: 3 1 480px; min-width: 0; }
+  .side { flex: 2 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+  .details {
+    margin: 0; padding: 32px; border-radius: var(--radius-lg); background: var(--c-bg-soft);
+    display: flex; flex-direction: column; gap: 26px;
+  }
+  .details > div { display: grid; grid-template-columns: 44px 1fr; column-gap: 16px; row-gap: 2px; }
+  .circle {
+    grid-row: span 2; width: 44px; height: 44px; border-radius: 50%; background: var(--c-brand-soft); color: var(--c-brand);
+    display: flex; align-items: center; justify-content: center;
+  }
+  dt { font-size: 15px; font-weight: 700; align-self: end; }
+  dd { margin: 0; font-size: 15px; line-height: 1.5; color: var(--c-text-2); }
+  dd a { font-weight: 500; }
+  .side :global(.map) { flex: 1 1 auto; }
+</style>

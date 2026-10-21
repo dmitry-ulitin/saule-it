@@ -1,0 +1,63 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/images/logo.png';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { localizedPath, useTranslations, type Locale, type PageKey } from '../i18n';
+
+interface Props {
+  lang: Locale;
+  page: PageKey;
+}
+
+const { lang, page } = Astro.props;
+const t = useTranslations(lang);
+
+const menu: { key: PageKey; label: string }[] = [
+  { key: 'home', label: t.nav.home },
+  { key: 'services', label: t.nav.services },
+  { key: 'contact', label: t.nav.contact },
+];
+---
+
+<header class="header">
+  <div class="container inner">
+    <a href={localizedPath(lang, 'home')} class="logo" aria-label={t.a11y.home}>
+      <Image src={logo} alt="Saule IT Services" height={46} loading="eager" />
+    </a>
+
+    <nav aria-label={t.a11y.mainMenu}>
+      <ul class="menu">
+        {
+          menu.map((item) => (
+            <li>
+              <a href={localizedPath(lang, item.key)} aria-current={item.key === page ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <LanguageSwitcher lang={lang} page={page} label={t.a11y.language} />
+  </div>
+</header>
+
+<style>
+  .header { background: var(--c-white); }
+  .inner {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 8px 32px; padding-block: 14px;
+  }
+  .logo img { height: 46px; width: auto; }
+  .menu { display: flex; gap: 32px; margin: 0; padding: 0; list-style: none; font-size: 15px; font-weight: 600; }
+  .menu a { color: var(--c-text); display: inline-block; padding: 10px 0 6px; border-bottom: 2px solid transparent; }
+  .menu a:hover { color: var(--c-brand); }
+  .menu a[aria-current='page'] { color: var(--c-brand); border-bottom-color: var(--c-brand); }
+
+  @media (max-width: 720px) {
+    .logo img { height: 38px; }
+    nav { order: 3; width: 100%; }
+    .menu { gap: 24px; }
+  }
+</style>

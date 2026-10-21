@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# TODO: replace the domain if it changes (must match "site" in astro.config.mjs)
+Sitemap: https://saule-it.com/sitemap-index.xml

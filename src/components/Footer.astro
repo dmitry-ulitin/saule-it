@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/images/logo.png';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { localizedPath, useTranslations, type Locale, type PageKey } from '../i18n';
+import { company } from '../data/site';
+
+interface Props {
+  lang: Locale;
+  page: PageKey;
+}
+
+const { lang, page } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container top">
+    <a href={localizedPath(lang, 'home')} aria-label={t.a11y.home}>
+      <Image src={logo} alt="Saule IT Services" height={36} />
+    </a>
+    <nav aria-label={t.a11y.footerMenu}>
+      <ul class="menu">
+        <li><a href={localizedPath(lang, 'home')}>{t.nav.home}</a></li>
+        <li><a href={localizedPath(lang, 'services')}>{t.nav.services}</a></li>
+        <li><a href={localizedPath(lang, 'contact')}>{t.nav.contact}</a></li>
+      </ul>
+    </nav>
+    <LanguageSwitcher lang={lang} page={page} label={t.a11y.language} size="sm" />
+  </div>
+  <div class="container bottom">
+    <p>© {year} {company.name}. {t.footer.rights}</p>
+    <a href={localizedPath(lang, 'privacy')}>{t.footer.privacy}</a>
+  </div>
+</footer>
+
+<style>
+  .footer { border-top: 1px solid var(--c-border-2); }
+  .top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; padding-block: 24px 12px; }
+  .top img { height: 36px; width: auto; }
+  .menu { display: flex; gap: 28px; margin: 0; padding: 0; list-style: none; font-size: 14px; font-weight: 600; }
+  .menu a { color: var(--c-text); display: inline-block; padding: 10px 0; }
+  .menu a:hover { color: var(--c-brand); }
+  .bottom {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px;
+    padding-block: 12px 28px; font-size: 13px; color: var(--c-muted);
+  }
+  .bottom a { color: var(--c-muted); text-decoration: underline; text-underline-offset: 3px; }
+  .bottom a:hover { color: var(--c-brand); }
+</style>

@@ -1,0 +1,9 @@
+---
+/**
+ * "/" — sends visitors to the default language (see defaultLocale in src/i18n/config.ts).
+ * On Netlify / Cloudflare Pages the same redirect is also done by public/_redirects (faster, no flash).
+ */
+import { defaultLocale, localizedPath } from '../i18n';
+
+return Astro.redirect(localizedPath(defaultLocale, 'home'));
+---

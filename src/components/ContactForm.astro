@@ -1,0 +1,141 @@
+---
+/**
+ * Contact form. Messages are delivered to the company mailbox by Web3Forms (https://web3forms.com),
+ * so the site needs no server. Put the access key into .env as PUBLIC_WEB3FORMS_KEY.
+ *
+ * Without JavaScript the form still works (Web3Forms shows its own confirmation page).
+ * With JavaScript it is sent in the background and a thank-you message replaces the form.
+ */
+import Icon from './Icon.astro';
+import { localizedPath, useTranslations, type Locale } from '../i18n';
+import { company } from '../data/site';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang).contact;
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+---
+
+<div class="card" data-contact-form data-error={t.error} data-sending={t.sending}>
+  <div class="success" data-success hidden role="status" tabindex="-1">
+    <span class="success-icon"><Icon name="check" size={26} strokeWidth={2.2} /></span>
+    <h2>{t.successTitle}</h2>
+    <p>{t.successText}</p>
+    <button type="button" class="btn-outline" data-reset>{t.sendAnother}</button>
+  </div>
+
+  <form action="https://api.web3forms.com/submit" method="POST" data-form>
+    <h2>{t.formTitle}</h2>
+
+    <input type="hidden" name="access_key" value={accessKey} />
+    <input type="hidden" name="subject" value={`New enquiry from the website (${lang.toUpperCase()})`} />
+    <input type="hidden" name="from_name" value={company.name} />
+    <!-- Spam protection: real visitors never fill this field. -->
+    <input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off" />
+
+    <label>
+      {t.name} *
+      <input type="text" name="name" required autocomplete="name" placeholder={t.namePlaceholder} />
+    </label>
+    <label>
+      {t.email} *
+      <input type="email" name="email" required autocomplete="email" placeholder={t.emailPlaceholder} />
+    </label>
+    <label>
+      {t.message} *
+      <textarea name="message" required rows="5" placeholder={t.messagePlaceholder}></textarea>
+    </label>
+
+    <p class="consent">
+      {t.consent} <a href={localizedPath(lang, 'privacy')}>{t.consentLink}</a>.
+    </p>
+
+    <p class="error" data-error-box hidden role="alert"></p>
+
+    <button type="submit" class="btn" data-submit>
+      <span data-submit-label>{t.send}</span>
+      <Icon name="arrow" size={16} strokeWidth={2} />
+    </button>
+  </form>
+</div>
+
+<script>
+  // Progressive enhancement: send the form with fetch() and show the thank-you message.
+  document.querySelectorAll<HTMLElement>('[data-contact-form]').forEach((root) => {
+    const form = root.querySelector<HTMLFormElement>('[data-form]')!;
+    const success = root.querySelector<HTMLElement>('[data-success]')!;
+    const errorBox = root.querySelector<HTMLElement>('[data-error-box]')!;
+    const submit = root.querySelector<HTMLButtonElement>('[data-submit]')!;
+    const label = root.querySelector<HTMLElement>('[data-submit-label]')!;
+    const sendText = label.textContent ?? '';
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      errorBox.hidden = true;
+      submit.disabled = true;
+      label.textContent = root.dataset.sending ?? sendText;
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || result.success === false) throw new Error(result.message ?? 'Request failed');
+
+        form.reset();
+        form.hidden = true;
+        success.hidden = false;
+        success.focus();
+        // Analytics hook (GA4), see README → "Analytics":
+        // window.gtag?.('event', 'generate_lead', { form: 'contact' });
+      } catch {
+        errorBox.textContent = root.dataset.error ?? 'Error';
+        errorBox.hidden = false;
+      } finally {
+        submit.disabled = false;
+        label.textContent = sendText;
+      }
+    });
+
+    root.querySelector('[data-reset]')?.addEventListener('click', () => {
+      success.hidden = true;
+      form.hidden = false;
+      form.querySelector<HTMLInputElement>('input[name="name"]')?.focus();
+    });
+  });
+</script>
+
+<style>
+  .card {
+    border: 1px solid var(--c-border); border-radius: var(--radius-lg);
+    padding: clamp(24px, 4vw, 40px); background: var(--c-white);
+  }
+  form { display: flex; flex-direction: column; gap: 20px; max-width: 520px; }
+  form[hidden] { display: none; }
+  h2 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+  label { display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 600; color: #3a3550; }
+  input:not([type='hidden']):not([type='checkbox']), textarea {
+    min-height: 48px; padding: 0 14px; border: 1px solid var(--c-input); border-radius: 8px;
+    font: inherit; font-size: 15px; font-weight: 500; color: var(--c-text); background: var(--c-white);
+  }
+  textarea { padding-block: 12px; resize: vertical; }
+  input::placeholder, textarea::placeholder { color: #8a84a0; }
+  input:focus, textarea:focus { outline: 2px solid #8a4fb0; outline-offset: 1px; border-color: #8a4fb0; }
+  .consent { font-size: 13px; color: var(--c-text-3); }
+  .consent a { text-decoration: underline; text-underline-offset: 3px; }
+  .error { color: var(--c-error); font-size: 14px; font-weight: 600; }
+  .btn { align-self: flex-start; }
+
+  .success { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; outline: none; }
+  .success[hidden] { display: none; }
+  .success-icon {
+    width: 52px; height: 52px; border-radius: 50%; background: var(--c-brand-soft); color: var(--c-brand);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .success p { color: var(--c-text-2); }
+</style>

@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { localeStaticPaths, useTranslations, type Locale } from '../../i18n';
+
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+const lang = Astro.params.lang as Locale;
+const t = useTranslations(lang).privacy;
+
+/** TODO: set to false once the final policy text is in src/i18n/*.ts (the draft note then disappears too). */
+const isDraft = true;
+---
+
+<BaseLayout lang={lang} page="privacy" noindex={isDraft}>
+  <article class="container doc">
+    <h1>{t.title}</h1>
+    <p class="updated">{t.updated}</p>
+    {isDraft && <p class="draft">{t.draftNote}</p>}
+    {
+      t.sections.map((s) => (
+        <section>
+          <h2>{s.heading}</h2>
+          <p>{s.text}</p>
+        </section>
+      ))
+    }
+  </article>
+</BaseLayout>
+
+<style>
+  .doc { max-width: 800px; padding-block: 64px 88px; display: flex; flex-direction: column; gap: 24px; }
+  h1 { font-size: clamp(32px, 5vw, 44px); font-weight: 800; }
+  .updated { color: var(--c-muted); font-size: 14px; }
+  .draft { padding: 12px 16px; border-radius: 8px; background: #fff4e5; color: #8a4b00; font-weight: 600; font-size: 14px; }
+  section { display: flex; flex-direction: column; gap: 8px; }
+  h2 { font-size: 20px; font-weight: 700; }
+  section p { color: var(--c-text-2); }
+</style>
