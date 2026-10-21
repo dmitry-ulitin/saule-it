@@ -19,7 +19,8 @@ const menu: { key: PageKey; label: string }[] = [
 ];
 ---
 
-<header class="header">
+<!-- Stays still during page transitions (only the active menu item changes). -->
+<header class="header" transition:name="site-header" transition:animate="none">
   <div class="container inner">
     <a href={localizedPath(lang, 'home')} class="logo" aria-label={t.a11y.home}>
       <Image src={logo} alt="Saule IT Services" height={46} loading="eager" />

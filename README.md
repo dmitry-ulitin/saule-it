@@ -57,6 +57,7 @@ sauleit/
 | Телефон, email | `src/data/site.ts` |
 | Заменить фото услуги | положить новый файл в `src/assets/images/` и поправить импорт в `src/data/services.ts` |
 | Цвета | `src/styles/global.css`, блок `:root` |
+| Анимация переходов между страницами | `src/styles/transitions.ts` (скорость) и `@keyframes pageIn/pageOut` в `src/styles/global.css` |
 | Язык по умолчанию (куда ведёт `/`) | `defaultLocale` в `src/i18n/config.ts` **и** `public/_redirects` |
 | Домен | `SITE_URL` в `astro.config.mjs` **и** `public/robots.txt` |
 

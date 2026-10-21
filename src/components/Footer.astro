@@ -15,7 +15,7 @@ const t = useTranslations(lang);
 const year = new Date().getFullYear();
 ---
 
-<footer class="footer">
+<footer class="footer" transition:name="site-footer" transition:animate="none">
   <div class="container top">
     <a href={localizedPath(lang, 'home')} aria-label={t.a11y.home}>
       <Image src={logo} alt="Saule IT Services" height={36} />

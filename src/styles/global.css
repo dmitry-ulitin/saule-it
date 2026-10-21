@@ -32,8 +32,17 @@
    ------------------------------------------------------------------ */
 *, *::before, *::after { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+html { -webkit-text-size-adjust: 100%; }
+
+/* ------------------------------------------------------------------
+   Page transitions (used by src/styles/transitions.ts)
+   ------------------------------------------------------------------ */
+@keyframes pageOut {
+  to { opacity: 0; transform: translateY(-8px); }
+}
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(14px); }
+}
 
 body {
   margin: 0;

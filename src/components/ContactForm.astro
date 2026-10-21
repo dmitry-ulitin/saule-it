@@ -64,50 +64,56 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
 
 <script>
   // Progressive enhancement: send the form with fetch() and show the thank-you message.
-  document.querySelectorAll<HTMLElement>('[data-contact-form]').forEach((root) => {
-    const form = root.querySelector<HTMLFormElement>('[data-form]')!;
-    const success = root.querySelector<HTMLElement>('[data-success]')!;
-    const errorBox = root.querySelector<HTMLElement>('[data-error-box]')!;
-    const submit = root.querySelector<HTMLButtonElement>('[data-submit]')!;
-    const label = root.querySelector<HTMLElement>('[data-submit-label]')!;
-    const sendText = label.textContent ?? '';
+  // With page transitions the page is not reloaded, so the form is set up on every "astro:page-load".
+  function setUpContactForms() {
+    document.querySelectorAll<HTMLElement>('[data-contact-form]:not([data-ready])').forEach((root) => {
+      root.dataset.ready = '';
+      const form = root.querySelector<HTMLFormElement>('[data-form]')!;
+      const success = root.querySelector<HTMLElement>('[data-success]')!;
+      const errorBox = root.querySelector<HTMLElement>('[data-error-box]')!;
+      const submit = root.querySelector<HTMLButtonElement>('[data-submit]')!;
+      const label = root.querySelector<HTMLElement>('[data-submit-label]')!;
+      const sendText = label.textContent ?? '';
 
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      errorBox.hidden = true;
-      submit.disabled = true;
-      label.textContent = root.dataset.sending ?? sendText;
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        errorBox.hidden = true;
+        submit.disabled = true;
+        label.textContent = root.dataset.sending ?? sendText;
 
-      try {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          headers: { Accept: 'application/json' },
-          body: new FormData(form),
-        });
-        const result = await response.json().catch(() => ({}));
-        if (!response.ok || result.success === false) throw new Error(result.message ?? 'Request failed');
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            headers: { Accept: 'application/json' },
+            body: new FormData(form),
+          });
+          const result = await response.json().catch(() => ({}));
+          if (!response.ok || result.success === false) throw new Error(result.message ?? 'Request failed');
 
-        form.reset();
-        form.hidden = true;
-        success.hidden = false;
-        success.focus();
-        // Analytics hook (GA4), see README → "Analytics":
-        // window.gtag?.('event', 'generate_lead', { form: 'contact' });
-      } catch {
-        errorBox.textContent = root.dataset.error ?? 'Error';
-        errorBox.hidden = false;
-      } finally {
-        submit.disabled = false;
-        label.textContent = sendText;
-      }
+          form.reset();
+          form.hidden = true;
+          success.hidden = false;
+          success.focus();
+          // Analytics hook (GA4), see README → "Analytics":
+          // window.gtag?.('event', 'generate_lead', { form: 'contact' });
+        } catch {
+          errorBox.textContent = root.dataset.error ?? 'Error';
+          errorBox.hidden = false;
+        } finally {
+          submit.disabled = false;
+          label.textContent = sendText;
+        }
+      });
+
+      root.querySelector('[data-reset]')?.addEventListener('click', () => {
+        success.hidden = true;
+        form.hidden = false;
+        form.querySelector<HTMLInputElement>('input[name="name"]')?.focus();
+      });
     });
+  }
 
-    root.querySelector('[data-reset]')?.addEventListener('click', () => {
-      success.hidden = true;
-      form.hidden = false;
-      form.querySelector<HTMLInputElement>('input[name="name"]')?.focus();
-    });
-  });
+  document.addEventListener('astro:page-load', setUpContactForms);
 </script>
 
 <style>

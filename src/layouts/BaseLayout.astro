@@ -10,6 +10,8 @@ import Footer from '../components/Footer.astro';
 import ogImage from '../assets/images/hero.jpg';
 import logo from '../assets/images/logo.png';
 import { getImage } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
+import { pageTransition } from '../styles/transitions';
 import {
   defaultLocale, htmlLang, locales, localizedPath, ogLocale, useTranslations,
   type Locale, type PageKey,
@@ -88,11 +90,18 @@ const organization = {
     <meta name="theme-color" content="#5a1f73" />
 
     <script type="application/ld+json" set:html={JSON.stringify(organization)} />
+
+    <!--
+      Smooth page transitions: links load the next page in the background and swap only what changed,
+      without a full reload. Header and footer stay in place; <main> fades/slides (src/styles/transitions.ts).
+      Browsers without View Transitions support get the same effect via Astro's fallback animation.
+    -->
+    <ClientRouter />
   </head>
   <body>
     <a class="skip-link" href="#main">{t.a11y.skipToContent}</a>
     <Header lang={lang} page={page} />
-    <main id="main">
+    <main id="main" transition:name="page" transition:animate={pageTransition}>
       <slot />
     </main>
     <Footer lang={lang} page={page} />

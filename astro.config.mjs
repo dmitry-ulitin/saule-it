@@ -9,6 +9,11 @@ const SITE_URL = 'https://saule-it.com';
 export default defineConfig({
   site: SITE_URL,
   trailingSlash: 'always',
+  // Start loading a page as soon as the visitor hovers (or touches) a link, so the transition feels instant.
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'hover',
+  },
   build: {
     format: 'directory', // /en/services/ -> dist/en/services/index.html
   },
