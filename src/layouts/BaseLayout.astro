@@ -49,7 +49,7 @@ const organization = {
   image: abs(og.src),
   email: company.email,
   ...(company.phone ? { telephone: company.phone } : {}),
-  address: { '@type': 'PostalAddress', addressLocality: company.city, addressCountry: company.countryCode },
+  address: { '@type': 'PostalAddress', streetAddress: company.streetAddress, postalCode: company.postalCode, addressLocality: company.city, addressCountry: company.countryCode },
   areaServed: company.areaServed.map((name) => ({ '@type': 'Country', name })),
   contactPoint: {
     '@type': 'ContactPoint',
