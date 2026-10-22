@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 // TODO: replace with the real domain before going live.
 // It is used for canonical URLs, hreflang links, Open Graph and sitemap.xml.
-const SITE_URL = 'https://saule-it.com';
+const SITE_URL = 'https://sauleit.com';
 
 export default defineConfig({
   site: SITE_URL,

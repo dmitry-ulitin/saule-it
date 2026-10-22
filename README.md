@@ -67,7 +67,7 @@ sauleit/
 
 Форма отправляет письма через сервис **Web3Forms** — свой сервер не нужен.
 
-1. Зайдите на https://web3forms.com, введите `info@saule-it.com` — ключ придёт на эту почту.
+1. Зайдите на https://web3forms.com, введите `info@sauleit.com` — ключ придёт на эту почту.
 2. Создайте файл `.env` (копия `.env.example`) и впишите `PUBLIC_WEB3FORMS_KEY=ваш-ключ`.
 3. На хостинге добавьте ту же переменную в настройках сборки (Environment variables).
 
