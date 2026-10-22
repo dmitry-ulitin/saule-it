@@ -29,7 +29,7 @@ const en: Dictionary = {
     home: 'Saule IT Services — home',
   },
   nav: { home: 'Home', services: 'Services', contact: 'Contact' },
-  cta: { discuss: 'Discuss your project', proposal: 'Request a proposal', allServices: 'All services' },
+  cta: { discuss: 'Discuss your project', allServices: 'All services' },
   home: {
     heroTitle: 'International corporate consulting',
     heroAccent: 'tailored to your business',

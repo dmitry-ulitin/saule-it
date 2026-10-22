@@ -29,7 +29,7 @@ const ru: Dictionary = {
     home: 'Saule IT Services — на главную',
   },
   nav: { home: 'Главная', services: 'Услуги', contact: 'Контакты' },
-  cta: { discuss: 'Обсудить проект', proposal: 'Получить предложение', allServices: 'Все услуги' },
+  cta: { discuss: 'Обсудить проект', allServices: 'Все услуги' },
   home: {
     heroTitle: 'Международное корпоративное консультирование',
     heroAccent: 'под ваши задачи',

@@ -30,7 +30,7 @@ const et: Dictionary = {
     home: 'Saule IT Services — avalehele',
   },
   nav: { home: 'Avaleht', services: 'Teenused', contact: 'Kontakt' },
-  cta: { discuss: 'Arutame teie projekti', proposal: 'Küsi pakkumist', allServices: 'Kõik teenused' },
+  cta: { discuss: 'Arutame teie projekti', allServices: 'Kõik teenused' },
   home: {
     heroTitle: 'Rahvusvaheline ärinõustamine',
     heroAccent: 'vastavalt teie ettevõtte vajadustele',

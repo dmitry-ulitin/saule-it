@@ -29,7 +29,6 @@ const whyIcons: IconName[] = ['globe', 'people', 'layers', 'sliders'];
             {t.cta.discuss}
             <Icon name="arrow" size={18} strokeWidth={2} />
           </a>
-          <a class="link-arrow" href={localizedPath(lang, 'contact')} data-cta="proposal">{t.cta.proposal}</a>
         </div>
       </div>
       <div class="hero-photo">
@@ -112,8 +111,7 @@ const whyIcons: IconName[] = ['globe', 'people', 'layers', 'sliders'];
   .hero { background: var(--c-bg-soft); overflow: hidden; }
   .hero-inner { display: flex; flex-wrap: wrap; align-items: stretch; gap: 32px; }
   .hero-text { flex: 1 1 520px; display: flex; flex-direction: column; gap: 24px; padding-block: 80px; }
-  h1 { font-size: clamp(36px, 5vw, 56px); line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; }
-  h1 span { color: var(--c-brand); }
+  h1 { font-size: clamp(36px, 5vw, 56px); line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; color: #000; }
   .lead { font-size: 18px; line-height: 1.6; color: var(--c-text-2); max-width: 600px; }
   .geo { font-size: 15px; line-height: 1.6; color: var(--c-text-3); max-width: 600px; }
   .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 8px; }

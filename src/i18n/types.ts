@@ -6,7 +6,7 @@ export interface Dictionary {
   meta: Record<PageKey, { title: string; description: string }>;
   a11y: { skipToContent: string; mainMenu: string; footerMenu: string; language: string; home: string };
   nav: { home: string; services: string; contact: string };
-  cta: { discuss: string; proposal: string; allServices: string };
+  cta: { discuss: string; allServices: string };
   home: {
     heroTitle: string;
     heroAccent: string;
