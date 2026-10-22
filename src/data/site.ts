@@ -5,8 +5,7 @@
 interface Company {
   name: string;
   email: string;
-  phone: string;
-  phonePlaceholder: string;
+  telegram: string;
   streetAddress: string;
   postalCode: string;
   city: string;
@@ -18,10 +17,8 @@ interface Company {
 export const company: Company = {
   name: 'Saule IT Services',
   email: 'info@sauleit.com',
-  /** TODO: real phone number in international format, e.g. '+372 5555 5555'. Leave empty to hide it in Schema.org. */
-  phone: '',
-  /** Shown on the site while the real number is unknown. */
-  phonePlaceholder: '+372 [PHONE]',
+  /** Telegram username without the @. */
+  telegram: 'sauleit',
   streetAddress: 'Madara tn 25',
   postalCode: '10612',
   city: 'Tallinn',

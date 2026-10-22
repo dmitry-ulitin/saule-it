@@ -47,7 +47,7 @@ export interface Dictionary {
     /** …and the link text itself, in the right grammatical case. */
     consentLink: string;
     emailLabel: string;
-    phoneLabel: string;
+    telegramLabel: string;
     officeLabel: string;
     office: string;
     officeNote: string;

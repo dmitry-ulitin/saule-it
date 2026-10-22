@@ -140,7 +140,7 @@ const et: Dictionary = {
     consent: 'Vormi saates nõustute oma andmete töötlemisega vastavalt meie',
     consentLink: 'privaatsuspoliitikale',
     emailLabel: 'E-post',
-    phoneLabel: 'Telefon',
+    telegramLabel: 'Telegram',
     officeLabel: 'Kontor',
     office: 'Madara tn 25, 10612 Tallinn, Eesti',
     officeNote: '(kokkuleppel)',

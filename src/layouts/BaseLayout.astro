@@ -48,14 +48,13 @@ const organization = {
   logo: abs(logoPng.src),
   image: abs(og.src),
   email: company.email,
-  ...(company.phone ? { telephone: company.phone } : {}),
+  sameAs: [`https://t.me/${company.telegram}`],
   address: { '@type': 'PostalAddress', streetAddress: company.streetAddress, postalCode: company.postalCode, addressLocality: company.city, addressCountry: company.countryCode },
   areaServed: company.areaServed.map((name) => ({ '@type': 'Country', name })),
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'customer service',
     email: company.email,
-    ...(company.phone ? { telephone: company.phone } : {}),
     availableLanguage: ['English', 'Russian', 'Estonian'],
   },
 };

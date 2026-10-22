@@ -139,7 +139,7 @@ const ru: Dictionary = {
     consent: 'Отправляя форму, вы соглашаетесь с обработкой данных согласно',
     consentLink: 'политике конфиденциальности',
     emailLabel: 'Email',
-    phoneLabel: 'Телефон',
+    telegramLabel: 'Telegram',
     officeLabel: 'Офис',
     office: 'Madara tn 25, 10612 Таллинн, Эстония',
     officeNote: '(по договорённости)',

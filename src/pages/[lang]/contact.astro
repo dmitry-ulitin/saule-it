@@ -14,7 +14,6 @@ export function getStaticPaths() {
 
 const lang = Astro.params.lang as Locale;
 const t = useTranslations(lang).contact;
-const phone = company.phone || company.phonePlaceholder;
 ---
 
 <BaseLayout lang={lang} page="contact">
@@ -33,11 +32,9 @@ const phone = company.phone || company.phonePlaceholder;
           <dd><a href={`mailto:${company.email}`} data-cta="email">{company.email}</a></dd>
         </div>
         <div>
-          <span class="circle"><Icon name="phone" size={20} /></span>
-          <dt>{t.phoneLabel}</dt>
-          <dd>
-            {company.phone ? <a href={`tel:${company.phone.replace(/\s/g, '')}`} data-cta="phone">{phone}</a> : phone}
-          </dd>
+          <span class="circle"><Icon name="telegram" size={20} /></span>
+          <dt>{t.telegramLabel}</dt>
+          <dd><a href={`https://t.me/${company.telegram}`} target="_blank" rel="noopener" data-cta="telegram">@{company.telegram}</a></dd>
         </div>
         <div>
           <span class="circle"><Icon name="pin" size={20} /></span>
