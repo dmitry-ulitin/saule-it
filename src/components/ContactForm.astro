@@ -94,8 +94,8 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
           form.hidden = true;
           success.hidden = false;
           success.focus();
-          // Analytics hook (GA4), see README → "Analytics":
-          // window.gtag?.('event', 'generate_lead', { form: 'contact' });
+          // GA4 event (sent only if the visitor accepted cookies, see CookieConsent.astro).
+          window.gtag?.('event', 'generate_lead', { form: 'contact' });
         } catch {
           errorBox.textContent = root.dataset.error ?? 'Error';
           errorBox.hidden = false;

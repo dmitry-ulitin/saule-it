@@ -35,8 +35,9 @@
 - ➖ BreadcrumbList — не нужен, пока нет вложенных страниц
 
 ## 6. Аналитика
-- ❌ GA4 с согласием на cookies (Consent Mode + cookie-баннер)
-- ❌ Событие отправки формы (место подготовлено в `ContactForm.astro`)
+- ✅ GA4 с согласием на cookies (Consent Mode v2 + cookie-баннер) — `src/components/CookieConsent.astro`
+- ⏳ Вписать `PUBLIC_GA4_ID` в `.env` и на хостинге
+- ✅ Событие отправки формы `generate_lead` — `ContactForm.astro`
 - ❌ Клики по email и CTA (у ссылок есть атрибут `data-cta`)
 - ❌ Проверка событий в GA4 (DebugView)
 

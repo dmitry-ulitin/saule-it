@@ -162,7 +162,14 @@ const et: Dictionary = {
       { heading: 'Teie õigused', text: 'Võite taotleda juurdepääsu oma andmetele, nende parandamist või kustutamist ning võtta nõusoleku tagasi, kirjutades aadressil info@sauleit.com. Samuti võite pöörduda Andmekaitse Inspektsiooni poole.' },
     ],
   },
-  footer: { rights: 'Kõik õigused kaitstud.', privacy: 'Privaatsuspoliitika' },
+  cookies: {
+    title: 'Kasutame küpsiseid',
+    text: 'Teie nõusolekul kasutame Google Analyticsi küpsiseid, et mõista, kuidas veebilehte kasutatakse. Valikut saate igal ajal muuta lehe allosas oleva lingi „Küpsiste seaded” kaudu. Lähemalt meie',
+    policyLink: 'privaatsuspoliitikas',
+    accept: 'Nõustun',
+    decline: 'Keeldun',
+  },
+  footer: { rights: 'Kõik õigused kaitstud.', privacy: 'Privaatsuspoliitika', cookieSettings: 'Küpsiste seaded' },
   notFound: { title: 'Lehte ei leitud', text: 'See võib olla teisaldatud või kustutatud.', back: 'Avalehele' },
 };
 

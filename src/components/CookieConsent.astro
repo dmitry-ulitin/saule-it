@@ -1,0 +1,173 @@
+---
+/**
+ * Cookie banner + Google Analytics 4 with Google Consent Mode v2.
+ *
+ * Nothing is loaded from Google until the visitor clicks "Accept": the GA script is injected only after consent
+ * (that is what EU rules require). The choice is remembered in localStorage; the "Cookie settings" link in the
+ * footer (data-cookie-settings) opens the banner again, so consent can be withdrawn as easily as it was given.
+ *
+ * Put the GA4 measurement ID into .env as PUBLIC_GA4_ID (G-XXXXXXXXXX). Without it the banner is not shown at all,
+ * because the site then sets no cookies.
+ */
+import { localizedPath, useTranslations, type Locale } from '../i18n';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang).cookies;
+const gaId = import.meta.env.PUBLIC_GA4_ID ?? '';
+---
+
+{
+  gaId && (
+    <div
+      class="cookie-banner"
+      data-cookie-banner
+      data-ga-id={gaId}
+      role="dialog"
+      aria-labelledby="cookie-title"
+      aria-describedby="cookie-text"
+      hidden
+      transition:persist
+    >
+      <p id="cookie-title" class="title">{t.title}</p>
+      <p id="cookie-text" class="text">
+        {t.text} <a href={localizedPath(lang, 'privacy')}>{t.policyLink}</a>.
+      </p>
+      <div class="actions">
+        <button type="button" class="btn-outline" data-cookie-choice="denied">{t.decline}</button>
+        <button type="button" class="btn-outline accept" data-cookie-choice="granted">{t.accept}</button>
+      </div>
+    </div>
+  )
+}
+
+<script>
+  type Choice = 'granted' | 'denied';
+
+  const STORAGE_KEY = 'cookie-consent';
+
+  function readChoice(): Choice | null {
+    try {
+      const value = localStorage.getItem(STORAGE_KEY);
+      return value === 'granted' || value === 'denied' ? value : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function saveChoice(choice: Choice) {
+    try {
+      localStorage.setItem(STORAGE_KEY, choice);
+    } catch {
+      // Private mode / blocked storage: the banner will simply be shown again next visit.
+    }
+  }
+
+  const banner = document.querySelector<HTMLElement>('[data-cookie-banner]');
+  const gaId = banner?.dataset.gaId ?? '';
+
+  const dataLayer: unknown[] = (window.dataLayer = window.dataLayer || []);
+  function gtag(..._args: unknown[]) {
+    // gtag.js expects the original `arguments` object, not an array.
+    // eslint-disable-next-line prefer-rest-params
+    dataLayer.push(arguments);
+  }
+
+  if (gaId) {
+    window.gtag = gtag;
+    // Consent Mode v2: everything is denied until the visitor decides.
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+    });
+  }
+
+  let gaLoaded = false;
+
+  function loadAnalytics() {
+    if (gaLoaded || !gaId) return;
+    gaLoaded = true;
+    gtag('consent', 'update', { analytics_storage: 'granted' });
+    gtag('js', new Date());
+    // Page views are sent by hand on every "astro:page-load", because page transitions do not reload the page.
+    gtag('config', gaId, { send_page_view: false });
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(gaId)}`;
+    document.head.append(script);
+  }
+
+  /** Removes the _ga / _ga_XXXX cookies GA has set, after the visitor withdraws consent. */
+  function deleteAnalyticsCookies() {
+    const domain = location.hostname.replace(/^www\./, '');
+    for (const cookie of document.cookie.split(';')) {
+      const name = cookie.split('=')[0].trim();
+      if (!name.startsWith('_ga')) continue;
+      for (const d of ['', `; domain=${domain}`, `; domain=.${domain}`]) {
+        document.cookie = `${name}=; max-age=0; path=/${d}`;
+      }
+    }
+  }
+
+  function apply(choice: Choice) {
+    saveChoice(choice);
+    if (banner) banner.hidden = true;
+    if (choice === 'granted') {
+      loadAnalytics();
+      sendPageView();
+    } else if (gaLoaded) {
+      gtag('consent', 'update', { analytics_storage: 'denied' });
+      deleteAnalyticsCookies();
+    }
+  }
+
+  function sendPageView() {
+    if (!gaLoaded || readChoice() !== 'granted') return;
+    gtag('event', 'page_view', { page_location: location.href, page_title: document.title });
+  }
+
+  if (banner) {
+    banner.querySelectorAll<HTMLButtonElement>('[data-cookie-choice]').forEach((button) => {
+      button.addEventListener('click', () => apply(button.dataset.cookieChoice as Choice));
+    });
+
+    const stored = readChoice();
+    if (stored === 'granted') loadAnalytics();
+    else if (stored === null) banner.hidden = false;
+  }
+
+  document.addEventListener('astro:page-load', sendPageView);
+
+  // Footer link "Cookie settings" — delegated, because the footer is replaced on every page transition.
+  document.addEventListener('click', (event) => {
+    const link = (event.target as Element).closest('[data-cookie-settings]');
+    if (!link || !banner) return;
+    event.preventDefault();
+    banner.hidden = false;
+    banner.querySelector<HTMLButtonElement>('[data-cookie-choice]')?.focus();
+  });
+</script>
+
+<style>
+  .cookie-banner {
+    position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px;
+    max-width: 440px; padding: 20px 22px;
+    background: var(--c-white); border: 1px solid var(--c-border); border-radius: var(--radius-lg);
+    box-shadow: 0 12px 40px rgba(27, 21, 48, .16);
+  }
+  .cookie-banner[hidden] { display: none; }
+  .title { margin: 0 0 6px; font-weight: 800; color: var(--c-heading); }
+  .text { margin: 0 0 16px; font-size: 14px; color: var(--c-text-2); }
+  .text a { text-decoration: underline; text-underline-offset: 3px; }
+  /* Both choices get equally visible buttons — required by EU guidance on consent. */
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .actions button { flex: 1 1 140px; justify-content: center; }
+  .accept { background: var(--c-brand); border-color: var(--c-brand); color: var(--c-white); }
+  .accept:hover { background: var(--c-brand-dark); }
+  @media (min-width: 640px) { .cookie-banner { left: 24px; bottom: 24px; } }
+</style>

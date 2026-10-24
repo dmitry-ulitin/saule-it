@@ -161,7 +161,14 @@ const en: Dictionary = {
       { heading: 'Your rights', text: 'You can request access to, correction or deletion of your data, or withdraw your consent, by writing to info@sauleit.com. You may also lodge a complaint with the Estonian Data Protection Inspectorate (Andmekaitse Inspektsioon).' },
     ],
   },
-  footer: { rights: 'All rights reserved.', privacy: 'Privacy policy' },
+  cookies: {
+    title: 'We use cookies',
+    text: 'With your consent we use Google Analytics cookies to understand how the site is used. You can change your choice at any time via “Cookie settings” at the bottom of the page. More in our',
+    policyLink: 'privacy policy',
+    accept: 'Accept',
+    decline: 'Decline',
+  },
+  footer: { rights: 'All rights reserved.', privacy: 'Privacy policy', cookieSettings: 'Cookie settings' },
   notFound: { title: 'Page not found', text: 'It may have been moved or deleted.', back: 'Back to home' },
 };
 

@@ -57,7 +57,8 @@ export interface Dictionary {
     openMap: string;
   };
   privacy: { title: string; updated: string; draftNote: string; sections: { heading: string; text: string }[] };
-  footer: { rights: string; privacy: string };
+  cookies: { title: string; text: string; policyLink: string; accept: string; decline: string };
+  footer: { rights: string; privacy: string; cookieSettings: string };
   notFound: { title: string; text: string; back: string };
 }
 

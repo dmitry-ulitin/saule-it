@@ -31,7 +31,10 @@ const year = new Date().getFullYear();
   </div>
   <div class="container bottom">
     <p>© {year} {company.name}. {t.footer.rights}</p>
-    <a href={localizedPath(lang, 'privacy')}>{t.footer.privacy}</a>
+    <div class="legal">
+      <a href={localizedPath(lang, 'privacy')}>{t.footer.privacy}</a>
+      {import.meta.env.PUBLIC_GA4_ID && <button type="button" data-cookie-settings>{t.footer.cookieSettings}</button>}
+    </div>
   </div>
 </footer>
 
@@ -46,6 +49,8 @@ const year = new Date().getFullYear();
     display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px;
     padding-block: 12px 28px; font-size: 13px; color: var(--c-muted);
   }
-  .bottom a { color: var(--c-muted); text-decoration: underline; text-underline-offset: 3px; }
-  .bottom a:hover { color: var(--c-brand); }
+  .legal { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+  .bottom a, .bottom button { color: var(--c-muted); text-decoration: underline; text-underline-offset: 3px; }
+  .bottom button { padding: 0; border: 0; background: none; font: inherit; cursor: pointer; }
+  .bottom a:hover, .bottom button:hover { color: var(--c-brand); }
 </style>
