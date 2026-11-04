@@ -20,8 +20,7 @@ export default defineConfig({
   integrations: [
     sitemap({
       // The root "/" page only redirects to the default language — keep it out of the sitemap.
-      // TODO: remove the "/privacy/" exclusion once the final privacy policy is published (isDraft = false).
-      filter: (page) => page !== `${SITE_URL}/` && !page.includes('/privacy/'),
+      filter: (page) => page !== `${SITE_URL}/`,
       i18n: {
         defaultLocale: 'en',
         locales: { en: 'en', ru: 'ru', et: 'et' },

@@ -56,7 +56,13 @@ export interface Dictionary {
     mapAlt: string;
     openMap: string;
   };
-  privacy: { title: string; updated: string; draftNote: string; sections: { heading: string; text: string }[] };
+  privacy: {
+    title: string;
+    updated: string;
+    draftNote: string;
+    /** In `body`, a string is a paragraph and an array of strings is a bulleted list. */
+    sections: { heading: string; body: (string | string[])[] }[];
+  };
   cookies: { title: string; text: string; policyLink: string; accept: string; decline: string };
   footer: { rights: string; privacy: string; cookieSettings: string };
   notFound: { title: string; text: string; back: string };

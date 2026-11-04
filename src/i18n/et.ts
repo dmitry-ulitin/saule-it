@@ -151,15 +151,82 @@ const et: Dictionary = {
   },
   privacy: {
     title: 'Privaatsuspoliitika',
-    updated: 'Viimati uuendatud: [KUUPÄEV]',
+    updated: 'Viimati uuendatud: 4. november 2026',
     draftNote: 'Mustand. Tekst tuleb enne veebilehe avaldamist üle vaadata ja täiendada.',
     sections: [
-      { heading: 'Kes me oleme', text: 'Saule IT Services, [JURIIDILINE NIMI], registrikood [KOOD], aadress [AADRESS], e-post info@sauleit.com.' },
-      { heading: 'Milliseid andmeid me kogume', text: 'Nimi, e-posti aadress ja sõnum, mille saadate kontaktvormi kaudu. [Kui analüütika on lubatud — küpsiste andmed ja külastuste statistika.]' },
-      { heading: 'Milleks me neid kasutame', text: 'Teie päringule vastamiseks ja pakkumise koostamiseks. Õiguslik alus on teie nõusolek ja meie õigustatud huvi (IKÜM art 6).' },
-      { heading: 'Kellele me neid edastame', text: '[Vormiteenus, majutusteenus, analüütikateenus — loetleda.] Me ei müü isikuandmeid.' },
-      { heading: 'Kui kaua me neid säilitame', text: '[PERIOOD], seejärel andmed kustutatakse.' },
-      { heading: 'Teie õigused', text: 'Võite taotleda juurdepääsu oma andmetele, nende parandamist või kustutamist ning võtta nõusoleku tagasi, kirjutades aadressil info@sauleit.com. Samuti võite pöörduda Andmekaitse Inspektsiooni poole.' },
+      {
+        heading: 'Kes me oleme',
+        body: [
+          'Teie isikuandmete vastutav töötleja on Saule IT Services OÜ, registrikood 12835454, Madara tn 25, 10612 Tallinn, Eesti. Privaatsusküsimuste korral kirjutage aadressil info@sauleit.com.',
+          'See poliitika kehtib veebilehe sauleit.com ja selle kaudu meile saadetud päringute kohta. Isikuandmete töötlemist klientidele teenuste osutamisel reguleerib leping vastava kliendiga.',
+        ],
+      },
+      {
+        heading: 'Milliseid andmeid me kogume ja miks',
+        body: [
+          [
+            'Kontaktvorm: nimi, e-posti aadress ja sõnum. Kasutame neid teie päringule vastamiseks ja pakkumise koostamiseks. Õiguslik alus on teie taotlusel enne lepingu sõlmimist tehtavad toimingud ja meie õigustatud huvi päringutele vastata (IKÜM art 6 lg 1 p b ja f).',
+            'E-post ja Telegram: teie kontaktandmed ja kirjavahetuse sisu. Neid töödeldakse samal eesmärgil ja samal alusel nagu kontaktvormi andmeid.',
+            'Veebilehe statistika, ainult juhul, kui olete küpsised heaks kiitnud: külastatud lehed, ligikaudne asukoht, seadme ja brauseri andmed, külastuse allikas ning kontaktvormi saatmise fakt. Kasutame neid, et mõista veebilehe kasutamist ja seda paremaks muuta. Õiguslik alus on teie nõusolek (IKÜM art 6 lg 1 p a).',
+            'Tehnilised logid: majutusteenuse pakkuja võib salvestada IP-aadressi, brauseri andmed ja iga päringu aja. Need on vajalikud veebilehe töökindluse ja turvalisuse tagamiseks. Õiguslik alus on meie õigustatud huvi (IKÜM art 6 lg 1 p f).',
+          ],
+          'Te ei ole kohustatud meile andmeid esitama, kuid ilma kontaktandmeteta ei saa me teie päringule vastata. Me ei kasuta teie andmeid automatiseeritud otsuste tegemiseks, profiilianalüüsiks ega reklaamiks.',
+        ],
+      },
+      {
+        heading: 'Küpsised ja brauseri salvestusruum',
+        body: [
+          'Google Analyticsi küpsised salvestatakse alles pärast nupu „Nõustun“ vajutamist. Enne seda ei laadita Google’ist midagi.',
+          [
+            '_ga: eristab külastajaid; säilib kuni 2 aastat.',
+            '_ga_<ID>: hoiab külastuse olekut; säilib kuni 2 aastat.',
+            'cookie-consent: kirje brauseri kohalikus salvestusruumis, mis jätab teie valiku meelde. Seda ei edastata kellelegi ja see säilib, kuni kustutate brauseri andmed.',
+          ],
+          'Oma valikut saate igal ajal muuta iga lehe allosas oleva lingi „Küpsiste seaded“ kaudu. Kui keeldute pärast nõusoleku andmist, analüütika peatub ja _ga-küpsised kustutatakse.',
+          'Kontaktilehe kaart on kohalik pilt ja fondid laaditakse meie enda veebilehelt, seega ei võeta nende puhul ühendust kolmandate isikutega. Link Google Mapsile avab Google’i veebilehe alles sellel klõpsamisel.',
+        ],
+      },
+      {
+        heading: 'Kellele me neid edastame',
+        body: [
+          'Me ei müü isikuandmeid. Edastame neid ainult teenusepakkujatele, kes aitavad meil veebilehte hallata, ning ametiasutustele, kui seadus seda nõuab:',
+          [
+            'Web3Forms (web3forms.com) edastab kontaktvormi sõnumid meie postkasti ja filtreerib rämpsposti.',
+            'Google Ireland Limited pakub teenust Google Analytics, kui olete küpsised heaks kiitnud.',
+            'Majutus- ja e-posti teenuse pakkujad säilitavad veebilehte ja meie kirjavahetust.',
+            'Telegram, kui otsustate meiega seal ühendust võtta. Sellele vestlusele kehtib Telegrami enda privaatsuspoliitika.',
+          ],
+        ],
+      },
+      {
+        heading: 'Edastamine väljapoole EMP-d',
+        body: [
+          'Mõned teenusepakkujad võivad töödelda andmeid väljaspool Euroopa Majanduspiirkonda, sealhulgas Ameerika Ühendriikides. Google Analyticsi andmeid võidakse edastada ettevõttele Google LLC, mis on sertifitseeritud EL-i ja USA andmekaitseraamistiku (EU–US Data Privacy Framework) alusel. Muude edastamiste puhul tugineme Euroopa Komisjoni kaitse piisavust käsitlevale otsusele või lepingu tüüptingimustele (IKÜM art 45–46).',
+        ],
+      },
+      {
+        heading: 'Kui kaua me neid säilitame',
+        body: [
+          [
+            'Päringud, mis ei viinud koostööni: kuni 12 kuud pärast viimast suhtlust teiega, seejärel andmed kustutatakse.',
+            'Päringud, mis viisid lepinguni: lepingu kehtivuse ajal ja seejärel nii kaua, kui seadus nõuab. Raamatupidamisdokumente säilitatakse raamatupidamise seaduse alusel 7 aastat.',
+            'Veebilehe statistika: Google Analyticsis kuni 14 kuud.',
+          ],
+        ],
+      },
+      {
+        heading: 'Teie õigused',
+        body: [
+          'Teil on õigus tutvuda oma andmetega, nõuda nende parandamist või kustutamist, piirata nende töötlemist, esitada vastuväiteid õigustatud huvil põhinevale töötlemisele ja saada oma andmed ülekantaval kujul. Kui töötlemine põhineb nõusolekul, võite selle igal ajal tagasi võtta; see ei mõjuta enne tagasivõtmist toimunud töötlemist.',
+          'Nende õiguste kasutamiseks kirjutage aadressil info@sauleit.com. Samuti võite esitada kaebuse Andmekaitse Inspektsioonile (www.aki.ee) või oma riigi andmekaitseasutusele.',
+        ],
+      },
+      {
+        heading: 'Poliitika muudatused',
+        body: [
+          'Kui andmetöötluse viis muutub, uuendame seda lehte ja selle alguses olevat kuupäeva.',
+        ],
+      },
     ],
   },
   cookies: {

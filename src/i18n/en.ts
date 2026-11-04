@@ -150,15 +150,82 @@ const en: Dictionary = {
   },
   privacy: {
     title: 'Privacy Policy',
-    updated: 'Last updated: [DATE]',
+    updated: 'Last updated: 4 November 2026',
     draftNote: 'Draft. The text must be reviewed and completed before the site goes live.',
     sections: [
-      { heading: 'Who we are', text: 'Saule IT Services, [LEGAL NAME], registry code [CODE], address [ADDRESS], email info@sauleit.com.' },
-      { heading: 'What data we collect', text: 'The name, email address and message you send through the contact form. [If analytics is enabled — cookie data and visit statistics.]' },
-      { heading: 'Why we use it', text: 'To answer your enquiry and prepare a proposal. The legal basis is your consent and our legitimate interests (Art. 6 GDPR).' },
-      { heading: 'Who we share it with', text: '[Form delivery service, hosting provider, analytics provider — list them.] We do not sell personal data.' },
-      { heading: 'How long we keep it', text: '[PERIOD], after which the data is deleted.' },
-      { heading: 'Your rights', text: 'You can request access to, correction or deletion of your data, or withdraw your consent, by writing to info@sauleit.com. You may also lodge a complaint with the Estonian Data Protection Inspectorate (Andmekaitse Inspektsioon).' },
+      {
+        heading: 'Who we are',
+        body: [
+          'The controller of your personal data is Saule IT Services OÜ, registry code 12835454, Madara tn 25, 10612 Tallinn, Estonia. For any privacy question, write to info@sauleit.com.',
+          'This policy covers the website sauleit.com and the enquiries sent to us through it. Personal data processed while we provide services to a client is covered by the agreement with that client.',
+        ],
+      },
+      {
+        heading: 'What data we collect and why',
+        body: [
+          [
+            'Contact form: your name, email address and message. We use them to answer your enquiry and prepare a proposal. Legal basis: steps taken at your request before entering into a contract, and our legitimate interest in replying to enquiries (Art. 6(1)(b) and (f) GDPR).',
+            'Email and Telegram: your contact details and whatever you write to us, used and processed on the same basis as the contact form.',
+            'Website statistics, only if you accept cookies: pages visited, approximate location, device and browser details, traffic source, and the fact that the contact form was sent. We use them to understand how the site is used and to improve it. Legal basis: your consent (Art. 6(1)(a) GDPR).',
+            'Technical logs: the hosting provider may record your IP address, browser details and the time of each request. They keep the site running and secure. Legal basis: our legitimate interest (Art. 6(1)(f) GDPR).',
+          ],
+          'You are not required to give us any data, but we cannot reply to an enquiry without your contact details. We do not use your data for automated decision-making or profiling, and we do not use it for advertising.',
+        ],
+      },
+      {
+        heading: 'Cookies and browser storage',
+        body: [
+          'Google Analytics cookies are set only after you click “Accept”. Until then, nothing is loaded from Google.',
+          [
+            '_ga: distinguishes visitors; kept for up to 2 years.',
+            '_ga_<ID>: keeps the state of the visit; kept for up to 2 years.',
+            'cookie-consent: an entry in your browser’s local storage that remembers your choice. It is not sent to anyone and stays until you clear your browser data.',
+          ],
+          'You can change your choice at any time via “Cookie settings” at the bottom of each page. If you decline after accepting, analytics stops and the _ga cookies are deleted.',
+          'The map on the contact page is a local image, and the fonts are served from our own site, so neither contacts a third party. The link to Google Maps opens Google’s site only when you click it.',
+        ],
+      },
+      {
+        heading: 'Who we share it with',
+        body: [
+          'We do not sell personal data. We share it only with the service providers that help us run the site, and with public authorities where the law requires it:',
+          [
+            'Web3Forms (web3forms.com) delivers contact form messages to our mailbox and filters spam.',
+            'Google Ireland Limited provides Google Analytics, if you accepted cookies.',
+            'Our website hosting and email providers store the site and our correspondence.',
+            'Telegram, if you choose to contact us there. Its own privacy policy applies to that conversation.',
+          ],
+        ],
+      },
+      {
+        heading: 'Transfers outside the EEA',
+        body: [
+          'Some providers may process data outside the European Economic Area, including in the United States. Google Analytics data may be transferred to Google LLC, which is certified under the EU–US Data Privacy Framework. For any other transfer, we rely on a European Commission adequacy decision or on standard contractual clauses (Art. 45–46 GDPR).',
+        ],
+      },
+      {
+        heading: 'How long we keep it',
+        body: [
+          [
+            'Enquiries that do not lead to cooperation: up to 12 months after our last contact with you, after which the data is deleted.',
+            'Enquiries that lead to a contract: for the duration of the contract and as long as the law then requires. Accounting documents are kept for 7 years under the Estonian Accounting Act.',
+            'Website statistics: no longer than 14 months in Google Analytics.',
+          ],
+        ],
+      },
+      {
+        heading: 'Your rights',
+        body: [
+          'You have the right to access your data, have it corrected or deleted, restrict its processing, object to processing based on legitimate interest, and receive your data in a portable format. Where processing is based on consent, you can withdraw it at any time; this does not affect processing that took place before the withdrawal.',
+          'To exercise these rights, write to info@sauleit.com. You may also lodge a complaint with the Estonian Data Protection Inspectorate (Andmekaitse Inspektsioon, www.aki.ee) or the data protection authority of your country.',
+        ],
+      },
+      {
+        heading: 'Changes to this policy',
+        body: [
+          'If the way we process data changes, we will update this page and the date at the top of it.',
+        ],
+      },
     ],
   },
   cookies: {
